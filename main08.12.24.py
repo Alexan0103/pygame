@@ -7,11 +7,12 @@ def dist(x1, y1, x2, y2):
 
 # pygame setup
 pygame.init()
-screen_width, screen_height = 1280, 710
+screen_width, screen_height = 1280, 720
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+live = 3
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
@@ -26,26 +27,19 @@ while running:
     # fill the screen with a color to wipe away anything from last framedd
     screen.fill("purple")
 
-    pygame.draw.circle(screen, "black", (480, 500), 20)
-    pygame.draw.circle(screen, "black", (125, 175), 20)
-    pygame.draw.circle(screen, "black", (350, 250), 20)
-    pygame.draw.circle(screen, "black", (880, 250), 20)
-    pygame.draw.circle(screen, "black", (780, 500), 20)
-    pygame.draw.circle(screen, "black", (1080, 175), 20)
+    circle_coords = [(340, 160), (340, 560), (940, 160), (940, 560)]
+    for x, y in circle_coords:
+        pygame.draw.circle(screen, "black", (x, y), 20)
     pygame.draw.circle(screen, "red", player_pos, 40)
 
-    if dist(*player_pos, 125, 175) <= 55:
-        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-    if dist(*player_pos, 350, 250) <= 55:
-        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-    if dist(*player_pos, 880, 250) <= 55:
-        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-    if dist(*player_pos, 1080, 175) <= 55:
-        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-    if dist(*player_pos, 780, 500) <= 55:
-        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-    if dist(*player_pos, 480, 500) <= 55:
+    for x, y in circle_coords:
+        if dist(*player_pos, x, y) <= 55:
             player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+            live -= 1
+
+    if live == 0:
+        pygame.quit()
+
 
     keys = pygame.key.get_pressed()
 
