@@ -1,9 +1,12 @@
 import pygame
 from math import sqrt
+
+
 def dist(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
-    return sqrt(dx**2 + dy**2)
+    return sqrt(dx ** 2 + dy ** 2)
+
 
 # pygame setup
 pygame.init()
@@ -12,10 +15,11 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 running = True
 dt = 0
-live = 3
+lives = 3
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
+lives_coords = [(50, 50), (100, 50), (150, 50)]
 
 while running:
     # poll for events
@@ -32,14 +36,18 @@ while running:
         pygame.draw.circle(screen, "black", (x, y), 20)
     pygame.draw.circle(screen, "red", player_pos, 40)
 
+    for x, y in lives_coords:
+        pygame.draw.circle(screen, "red", (x, y), 15)
+
     for x, y in circle_coords:
         if dist(*player_pos, x, y) <= 55:
             player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-            live -= 1
+            lives -= 1
+            lives_coords.pop()
+            print(lives_coords)
 
-    if live == 0:
+    if lives == 0:
         pygame.quit()
-
 
     keys = pygame.key.get_pressed()
 
@@ -60,8 +68,6 @@ while running:
         player_pos.y = 0  # Возврат на верхнюю границу
     elif player_pos.y < 0:
         player_pos.y = screen_height  # Возврат на нижнюю границу
-
-
 
     # flip() the display to put your work on screen
     pygame.display.flip()
