@@ -45,7 +45,7 @@ def main():
         BLOCKSTEP = 20
         TRUE = 1
         FALSE = 0
-        PADDLELEFTYVAL = 25
+        PADDLELEFTYVAL = 25 
         PADDLERIGHTYVAL = 775
         LEFT = 1
         RIGHT = 0
@@ -53,14 +53,13 @@ def main():
 
         WALL_WIDTH = 20
         WALL_HEIGHT = 0
-        
+
         ###### VARIABLES
 
 
 
         paddleleftxy = [5,200]
         paddlerightxy = [775,200]
-        wallxy = [400,400]
         scoreleft = 0
         scoreright = 0
         gameover = TRUE
@@ -76,8 +75,6 @@ def main():
         scoreright = 0
 
 
-
-
         ballcludge = 0 # added for problems with right paddle
         
         pygame.init()
@@ -91,11 +88,6 @@ def main():
         ballerase = pygame.image.load('ballerase.bmp').convert()
         textleft = [1,1,2,2]
         textright = [3,3,4,4]
-        background = pygame.image.load('wallpaper (2).png')
-
-
-        screen.blit(background, (-30, 0))
-
 
 
 
@@ -121,9 +113,6 @@ def main():
                 if event.type == QUIT:
                     exit()
 
-            background = pygame.image.load('wallpaper (2).png')
-
-            screen.blit(background, (-30, 0))
 
 
 
@@ -143,18 +132,11 @@ def main():
         ###### main game loop
             
         while not gameover:
-
-
-            background = pygame.image.load('wallpaper (2).png')
-
-            screen.blit(background, (-30, 0,))
-
             left_wall_x = (WIDTH // 2)
 
             # Отрисовка стенок
-            pygame.draw.rect(screen, (255, 255, 255), (left_wall_x, 355, WALL_WIDTH, HEIGHT))
-            pygame.draw.rect(screen, (255, 255, 255), (left_wall_x, -60, WALL_WIDTH, HEIGHT // 2))
-
+            pygame.draw.rect(screen, (255, 255, 255), (left_wall_x, 350, WALL_WIDTH, HEIGHT))
+            pygame.draw.rect(screen, (255, 255, 255), (left_wall_x, -65, WALL_WIDTH, HEIGHT // 2))
 
             if scoreleft == 3 or scoreright == 3:
                 gameover = True
@@ -168,10 +150,8 @@ def main():
                     text_surface = font.render("PLAYER R WIN", True, BLUE)
                 screen.blit(text_surface, (180, 250))
                 pygame.display.update()
-
                 
                 sleep(2)
-
 
 
             ##### clear screen on paddles and ball and print scores
@@ -180,24 +160,20 @@ def main():
             screen.blit(paddleerase,paddlerightxy)
             screen.blit(ballerase,ballxy)
 
-
-
-
             font = pygame.font.SysFont("arial", 64)
             text_surface1 = font.render(str(scoreleft), True, BLUE)
             textleft = screen.blit(text_surface1, (40,40))
             text_surface1 = font.render(str(scoreright), True, BLUE)
             textright = screen.blit(text_surface1, (700,40))
 
+
             ##### parse input events and move paddles
             
             for event in pygame.event.get():
                 if event.type == QUIT:
                     exit()
-
                     
             pressed_keys = pygame.key.get_pressed()
-
             
             if pressed_keys[K_a]:
                 if paddleleftxy[1] > MINY:
@@ -246,7 +222,6 @@ def main():
                     for event in pygame.event.get():
                         if event.type == QUIT:
                             exit()
-
                     
                     pressed_keys = pygame.key.get_pressed()
 
@@ -255,6 +230,7 @@ def main():
                     clock.tick(20)
 
                 pygame.draw.rect(screen,BLACK,paused_rect)
+                
 
 
             #### if not serving just move the ball
@@ -282,7 +258,12 @@ def main():
                         ballcludge = ballcludge + 1
                         if ballcludge == 4:
                             ballcludge = 0
-                            
+
+
+
+
+
+
                 ## have we hit the top of screen
                 elif ballxy[1] <= MINY:
                     #1#ballanglerad = -ballanglerad
@@ -318,17 +299,15 @@ def main():
                 elif service == RIGHT:
                     ballxy[0] = paddlerightxy[0] - 25
                     ballxy[1] = paddlerightxy[1] + 40
-
-
-
+            
+            
             ###### RENDER SCREEN
     
             screen.blit(paddle,paddleleftxy)
             screen.blit(paddle,paddlerightxy)
             screen.blit(ball,ballxy)
             pygame.display.update()
-            pygame.display.flip()
-
+            
 
           
             clock.tick(120)
