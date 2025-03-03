@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демонстрация Падения</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ddd;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            background: #c4c4c4;
+            padding: 120px;
+            border-radius: 70px;
+        }
+        .image img {
+            width: 200px;
+            height: auto;
+            border-radius: 110px;
+            margin-right: 150px;
+        }
+        .text {
+            font-family: Arial, sans-serif;
+        }
+        .title {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .description {
+            margin: 12px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #00ff88;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function showDetails() {
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('detailsContent').classList.remove('hidden');
+        }
+    </script>
+</head>
+<body>
+    <div id="mainContent" class="container">
+        <div class="image">
+            <img src="falling_stone_moon.png" >
+        </div>
+        <div class="text">
+            <div class="title">Демонстрация Свободного Падения на Планетах</div>
+            <div class="description">На этом сайте вы можете посмотреть с какой скоростью падают предметы на разных планетах со 100 метров</div>
+            <button class="button" onclick="showDetails()">Подробнее</button>
+        </div>
+    </div>
+    
+    <div id="detailsContent" class="container hidden">
+        <div class="image">
+            <img src="falling_stone_moon.png" >
+        </div>
+        <div class="text">
+            <div class="title">Падение камня на Луне со 100 метров</div>
+            <div class="description">Камень падает со 100 метров на Луне за 4.5 секунд</div>
+        </div>
+    </div>
+</body>
+</html>
