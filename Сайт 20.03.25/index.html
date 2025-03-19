@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демонстрация Падения</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="mainContent" class="container">
+        <div class="image">
+            <img src="earth.png" alt="Earth">
+            <img src="moon.png" alt="Moon">
+        </div>        
+        <div class="text">
+            <div class="title">Демонстрация Свободного Падения на Земле и Луне</div>
+            <div class="description">На этом сайте вы можете посмотреть с какой скоростью падают предметы на разных планетах со 100 метров</div>
+            <button class="button" onclick="showDetails()">Подробнее</button>
+        </div>
+    </div>
+    
+    <div id="detailsContent" class="container hidden">
+        <p class="falling-distance">Расстояние падения 100 м</p>
+            <div class="planets">
+                <div class="planet">
+                    <img src="earth.png">
+                    <p class="planet-name">Земля</p>
+                    <p class="timer" id="earthTimer">Время: 0.00 сек</p>
+                    <div class="ball" id="earthBall"></div>
+                </div>
+            <div class="planet">
+                <img src="moon.png">
+                <p class="planet-name">Луна</p>
+                <p class="timer" id="moonTimer">Время: 0.00 сек</p>
+                <div class="ball" id="moonBall"></div>
+            </div>            
+        </div>
+        <div class="controls">
+            <button class="button" onclick="startSimulation()">Начать</button>
+            <button class="button" onclick="resetSimulation()">Заново</button>
+            <button class="button" onclick="showMain()">Закончить</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
