@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showCoursesByRange(ranges) {
+        hideShowMoreButton();
         courseCards.forEach((card, index) => {
             let show = false;
             ranges.forEach(range => {
@@ -29,26 +30,49 @@ document.addEventListener("DOMContentLoaded", () => {
                     show = true;
                 }
             });
-            card.style.display = show ? "flex" : "none";
+    
+            if (show) {
+                card.style.display = "flex";
+                card.classList.add("fade-in");
+                setTimeout(() => card.classList.remove("fade-in"), 600);
+            } else {
+                card.style.display = "none";
+            }
         });
-        hideShowMoreButton();
     }
+    
+    
+    
 
-    // Показывает только первые 5 курсов и кнопку
     function showInitialCourses() {
         courseCards.forEach((card, index) => {
-            card.style.display = index < 5 ? "flex" : "none";
+            if (index < 5) {
+                card.style.display = "flex";
+                card.style.animationDelay = `${index * 120}ms`;
+                card.classList.add("fade-in");
+                setTimeout(() => card.classList.remove("fade-in"), 1000);
+            } else {
+                card.style.display = "none";
+            }
         });
+    
         if (!document.body.contains(showMoreBtn)) {
             courseCards[courseCards.length - 1].parentNode.appendChild(showMoreBtn);
         }
     }
-
-    // Обработчик для "Показать ещё"
+    
+    
     showMoreBtn.addEventListener("click", () => {
-        courseCards.forEach(card => card.style.display = "flex");
+        courseCards.forEach((card, index) => {
+            if (card.style.display === "none") {
+                card.style.display = "flex";
+                card.classList.add("fade-in");
+                setTimeout(() => card.classList.remove("fade-in"), 500);
+            }
+        });
         hideShowMoreButton();
     });
+    
 
     // Кнопка "Все курсы"
     btnAll.addEventListener("click", (e) => {
@@ -95,3 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".floating-box").classList.add("visible");
     }, 1000);
 });
+
+
+function animateCards(cards) {
+    cards.forEach((card, index) => {
+        card.style.display = "flex";
+        card.classList.remove("fade-in"); // сбрасываем, если анимация уже была
+        void card.offsetWidth; // перезапуск анимации
+        card.style.animationDelay = `${index * 100}ms`;
+        card.classList.add("fade-in");
+    });
+}
